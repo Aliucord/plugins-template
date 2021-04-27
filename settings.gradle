@@ -1,0 +1,5 @@
+include ':ExamplePlugin'
+rootProject.name = "plugins"
+
+include ':Aliucord'
+project(':Aliucord').projectDir = new File('../repo/Aliucord')
