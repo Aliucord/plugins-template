@@ -29,15 +29,20 @@ public class MyFirstPatch extends Plugin {
     @Override
     // Called when your plugin is started. This is the place to register command, add patches, etc
     public void start(Context context) {
+        // The full name of the class to patch
         var className = "com.discord.widgets.chat.list.adapter.WidgetChatListAdapterItemMessage";
+        // The method of that class to patch
         var methodName = "onConfigure";
-        // These are the arguments the method we patch receives. In this case the methods code is
+        // These are the arguments the patched methods receives. In the case of
+        // WidgetChatListAdapterItemMessage.onConfigure the method's implementation is
         // public void onConfigure(int i, ChatListEntry chatListEntry), so our methodArguments
-        // look like this
+        // look like this:
         var methodArguments = new Class<?>[] { int.class, ChatListEntry.class };
+
+        // add the patch
         patcher.patch(className, methodName, methodArguments, new PinePatchFn(callFrame -> {
-            // Obtain the second argument passed to the method, so the chatEntry and cast it to MessageEntry
-            // as seen in the Discord Code
+            // Obtain the second argument passed to the method, so the chatEntry
+            // and cast it to MessageEntry
             var entry = (MessageEntry) callFrame.args[1];
 
             // Obtain the actual message object

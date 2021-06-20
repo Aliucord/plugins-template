@@ -1,5 +1,6 @@
 package com.aliucord.plugins;
 
+// Import several packages such as Aliucord's CommandApi and the Plugin class
 import android.content.Context;
 
 import androidx.annotation.NonNull;
@@ -28,10 +29,12 @@ public class HelloWorld extends Plugin {
     @Override
     // Called when your plugin is started. This is the place to register command, add patches, etc
     public void start(Context context) {
+        // Registers a command with the name hello, the description "Say hello to the world" and no options
         commands.registerCommand(
                 "hello",
                 "Say hello to the world",
                 Collections.emptyList(),
+                // Return a command result with Hello World! as the content, no embeds and send set to false
                 args -> new CommandsAPI.CommandResult("Hello World!", null, false)
         );
     }

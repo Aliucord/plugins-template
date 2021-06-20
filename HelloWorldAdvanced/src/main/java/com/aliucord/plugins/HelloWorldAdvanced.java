@@ -43,7 +43,7 @@ public class HelloWorldAdvanced extends Plugin {
                 args -> {
                     // get argument passed to the world option
                     var world = (String) args.get("world");
-                    // It's optional, so it may be null
+                    // This argument was specified as optional, so it may be null, in that case assign a default
                     if (world == null) world = "Earth";
 
                     // get the user argument
