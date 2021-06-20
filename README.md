@@ -2,12 +2,18 @@
 
 Template for an [Aliucord](https://github.com/Aliucord) plugins repo
 
+This template uses Java 11 which requires gradle alpha which is only supported by Android Studio Beta or later.
+To use it, you must change your Android Studio updater branch to beta or canary.
+
+Alternatively, you can change `JavaVersion.VERSION_11` to `JavaVersion.VERSION_1_8` in all build.gradle files and follow
+the Android Studio instructions to downgrade to Java 8
+
+
 ## Instructions
 
 1. Generate a repo from this template, making sure to tick "Include all branches".
-2. Edit `updater.json`, replacing `USERNAME` and `REPONAME` with your GitHub repo and user name.
-3. Edit `ExamplePlugin/src/main/java/com/aliucord/plugins/ExamplePlugin.java`, replacing `USERNAME` and `REPONAME` with your GitHub repo and user name, `DISCORD USERNAME` and `123456789` with your Discord username and user id.
-4. Edit `settings.gradle` to include your plugins
-5. Clone the [Aliucord](https://github.com/Aliucord/Aliucord) repo to `../repo` (one directory up under the name repo)
-6. Create a GitHub [PAT](https://github.com/settings/tokens) with scope `repo`
-7. Add that PAT to the repo's Actions Secrets with the name `ACCESS_TOKEN`
+2. Refer to https://github.com/Aliucord/documentation for further instructions
+
+## License
+
+Everything in this repo is released into the public domain. You may use it however you want with no conditions whatsoever
