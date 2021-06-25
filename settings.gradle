@@ -1,4 +1,7 @@
-include ':ExamplePlugin'
+include ':HelloWorld'
+include ':HelloWorldAdvanced'
+include ':CatApi'
+include ':MyFirstPatch'
 rootProject.name = "plugins"
 
 include ':DiscordStubs'
