@@ -3,8 +3,8 @@
         "minimumDiscordVersion": 80202,
         "version": "1.0.0",
         "build": "https://raw.githubusercontent.com/USERNAME/REPONAME/builds/%s.zip"
-    },
-    "HelloWorld": {
+    }/*,
+    "MyFirstPlugin": {
         "version": "1.0.0"
-    }
+    } */
 }
