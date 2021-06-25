@@ -33,15 +33,12 @@ the Android Studio instructions to downgrade to Java 8
     ├── plugins
     │   ├── build.gradle
     │   ├── build.sh
-    │   ├── CatApi
+    │   ├── ExamplePlugins
     │   ├── gradle
     │   ├── gradle.properties
     │   ├── gradlew
     │   ├── gradlew.bat
-    │   ├── HelloWorld
-    │   ├── HelloWorldAdvanced
     │   ├── local.properties
-    │   ├── MyFirstPatch
     │   ├── README.md
     │   ├── settings.gradle
     │   └── updater.json
