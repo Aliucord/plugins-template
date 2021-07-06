@@ -8,7 +8,6 @@ import com.aliucord.api.CommandsAPI;
 import com.aliucord.entities.Plugin;
 import com.discord.api.commands.ApplicationCommandType;
 import com.discord.models.commands.ApplicationCommandOption;
-import com.discord.stores.StoreStream;
 
 import java.util.Arrays;
 
@@ -40,30 +39,22 @@ public class HelloWorldAdvanced extends Plugin {
                 "advancedhello",
                 "Say hello to the world or a user",
                 options,
-                args -> {
-                    // get argument passed to the world option
-                    var world = (String) args.get("world");
-                    // This argument was specified as optional, so it may be null, in that case assign a default
-                    if (world == null) world = "Earth";
+                ctx -> {
+                    // get argument passed to the world option or fall back to Earth if not specified
+                    var world = ctx.getStringOrDefault("world", "Earth");
 
                     // get the user argument
-                    var userId = (String) args.get("user");
+                    var user = ctx.getUser("user");
 
                     boolean shouldSend;
                     String result;
-                    if (userId == null) {
+                    if (user == null) {
                         result = "Hello " + world;
 
                         // Send locally as clyde
                         shouldSend = false;
                     } else {
-                        // The UserID we get is a String, but Discord uses longs, so parse it to a long
-                        long parsedUserId = Long.parseLong(userId);
-                        // Get the UserStore. This is Discords internal Manager that has all cached Users
-                        var userStore = StoreStream.getUsers();
-                        // Try to get the mentioned user
-                        var user = userStore.getUsers().get(parsedUserId);
-                        var userName = user != null ? user.getUsername() : "Stranger" ;
+                        var userName = user.getUsername();
 
                         result = String.format("Hello from %s, %s!", world, userName);
 

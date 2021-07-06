@@ -35,7 +35,7 @@ public class HelloWorld extends Plugin {
                 "Say hello to the world",
                 Collections.emptyList(),
                 // Return a command result with Hello World! as the content, no embeds and send set to false
-                args -> new CommandsAPI.CommandResult("Hello World!", null, false)
+                ctx -> new CommandsAPI.CommandResult("Hello World!", null, false)
         );
     }
 

@@ -35,7 +35,7 @@ public class CatApi extends Plugin {
                 "cat",
                 "Get a random cat picture",
                 Collections.emptyList(),
-                args -> {
+                ctx -> {
                     try {
                         // Fetch the api and deserialize the resulting Json string into the ApiResponse class
                         ApiResponse res = Http.simpleJsonGet("https://aws.random.cat/meow", ApiResponse.class);

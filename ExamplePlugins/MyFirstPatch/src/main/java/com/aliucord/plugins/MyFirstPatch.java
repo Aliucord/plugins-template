@@ -4,9 +4,11 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
+import com.aliucord.CollectionUtils;
 import com.aliucord.entities.MessageEmbedBuilder;
 import com.aliucord.entities.Plugin;
 import com.aliucord.patcher.PinePatchFn;
+import com.aliucord.wrappers.embeds.MessageEmbedWrapper;
 import com.discord.widgets.chat.list.entries.ChatListEntry;
 import com.discord.widgets.chat.list.entries.MessageEntry;
 
@@ -47,14 +49,22 @@ public class MyFirstPatch extends Plugin {
 
             // Obtain the actual message object
             var msg = entry.getMessage();
-            if (msg == null) return;
-            // Make sure message type isn't -1 (Which means the message is by logged in user and currently sending)
-            if (msg.getType() == -1) return;
+            // Make sure message isn't loading (currently being sent by current user)
+            if (msg.isLoading()) return;
 
             // Obtain the embeds ArrayList from the message
             var embeds = msg.getEmbeds();
             // Let's add our own!
             var ourEmbed = new MessageEmbedBuilder().setTitle("Hello World").build();
+            // But make sure it isn't already added
+            if (CollectionUtils.some(embeds, embed -> {
+                // Discord's Embed class is obfuscated so use Aliucord's Wrapper to obtain the title
+                String title = MessageEmbedWrapper.getTitle(embed);
+                return title != null && title.equals("Hello World");
+            })) {
+                return;
+            }
+
             embeds.add(ourEmbed);
         }));
     }
