@@ -13,13 +13,16 @@ the Android Studio instructions to downgrade to Java 8
 1. Generate a repo based on this template
 2. Create a new folder that will hold everything needed
 3. Inside this folder, create a folder called buildtool
-4. Save the latest [buildtool binary](https://github.com/Aliucord/buildtool/releases/latest/download/buildtool) and [example config](https://github.com/Aliucord/buildtool/blob/main/config.example.json) to the buildtools folder
+4. Save the latest [buildtool binary](https://github.com/Aliucord/buildtool/releases/latest) and [example config](https://github.com/Aliucord/buildtool/blob/main/config.example.json) to the buildtools folder
 5. Rename the config to `config.json` and correct the androidSDK path in it
 6. Clone Aliucord: `git clone https://github.com/Aliucord/Aliucord repo`
 7. Clone your generated repo and change the plugins field in buildtool's config.json to the name of your plugin folder
 8. Optional but highly recommended (You will need this sooner or later): Download and decompile the latest Discord apk
    1. Download the correct discord apk from <https://aliucord.tk/download/discord?v=VERSION>, for example <https://aliucord.tk/download/discord?v=80202>
-   2. Decompile it using [jadx](https://github.com/skylot/jadx): `jadx --show-bad-code --no-replace-consts the.apk`
+   2. Decompile it using [jadx](https://github.com/Juby210/jadx):
+      ```sh
+      jadx -e --show-bad-code --no-debug-info --no-inline-anonymous --no-inline-methods --no-generate-kotlin-metadata --no-replace-consts --respect-bytecode-access-modifiers --fs-case-sensitive theapk.apk
+      ```
 9. Your resulting folder structure should look something like this:
     ```
     Plugins
