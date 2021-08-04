@@ -1,5 +1,5 @@
-# The plugins to build, or defaults to all plugins
-param([String]$Plugins = "*")
+# The plugin to build, or defaults to all plugins
+param([String]$Plugin = "*")
 
 if (-not(Get-Command "d8" -errorAction SilentlyContinue))
 {
@@ -8,20 +8,20 @@ if (-not(Get-Command "d8" -errorAction SilentlyContinue))
 
 Set-Location ../buildtool
 Write-Output "Building plugin..."
-./buildtool.exe -p "$plugins"
+./buildtool.exe -p "$Plugin"
 Set-Location ../buildsPlugins
 if (-not(adb devices | findstr "\<device\>")) {
 	Throw "No android device found. Connect to your phone via adb first"
 }
 Write-Output "Pushing plugin zip to device..."
-if ($plugins -eq "*") {
+if ($Plugin -eq "*") {
 	$files = Get-ChildItem . -Filter *.zip
 	foreach ($f in $files) {
 		adb push -- "$f" /storage/emulated/0/Aliucord/plugins
 	}
 }
 else {
-	adb push "$plugins.zip" /storage/emulated/0/Aliucord/plugins
+	adb push "$Plugin.zip" /storage/emulated/0/Aliucord/plugins
 }
 Write-Output "Force stopping Aliucord..."
 adb shell am force-stop com.aliucord
