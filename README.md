@@ -19,7 +19,7 @@ the Android Studio instructions to downgrade to Java 8
 7. Clone your generated repo and change the plugins field in buildtool's config.json to the name of your plugin folder
 8. Optional but highly recommended (You will need this sooner or later): Download and decompile the latest Discord apk
    1. Download the correct discord apk from <https://aliucord.tk/download/discord?v=VERSION>, for example <https://aliucord.tk/download/discord?v=80202>
-   2. Decompile it using [jadx](https://github.com/Juby210/jadx):
+   2. Decompile it using [jadx](https://github.com/Juby210/jadx/releases/latest):
       ```sh
       jadx -e --show-bad-code --no-debug-info --no-inline-anonymous --no-inline-methods --no-generate-kotlin-metadata --no-replace-consts --respect-bytecode-access-modifiers --fs-case-sensitive theapk.apk
       ```
@@ -68,7 +68,7 @@ This template includes 4 example plugins which you can find in the ExamplePlugin
 1. Copy the `HelloWorld` example plugin into the root of this folder as MyFirstPlugin and fix all values in the plugin Manifest method
 2. Uncomment the first line in settings.gradle to tell gradle to include it. Whenever you add a new plugin you have to add it here
 3. Inspect the updater.json file and uncomment the MyFirstPlugin section. Whenever you add a new plugin you have to add it to updater.json similar to the MyFirstPlugin block
-4. Run `./build.sh MyFirstPlugin` to build and deploy the plugin to your phone and try it out
+4. Run the build script based on your OS (`./build.sh MyFirstPlugin` on linux, `./build -Plugin MyFirstPlugin` on windows using powershell) to build and deploy the plugin to your phone and try it out
 
 ## License
 
