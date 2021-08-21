@@ -1,3 +1,5 @@
+// include(":MyFirstPlugin")
+
 include(":CatApi")
 project(":CatApi").projectDir = File("./ExamplePlugins/CatApi")
 
