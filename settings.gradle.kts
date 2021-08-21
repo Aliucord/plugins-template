@@ -1,8 +1,16 @@
-include(":HelloWorld")
-rootProject.name = "AliucordPlugins"
+include(":CatApi")
+project(":CatApi").projectDir = File("./ExamplePlugins/CatApi")
 
-include(":DiscordStubs")
-project(":DiscordStubs").projectDir = File("../repo/DiscordStubs")
+include(":HelloWorld")
+project(":HelloWorld").projectDir = File("./ExamplePlugins/HelloWorld")
+
+include(":HelloWorldAdvanced")
+project(":HelloWorldAdvanced").projectDir = File("./ExamplePlugins/HelloWorldAdvanced")
+
+include(":MyFirstPatch")
+project(":MyFirstPatch").projectDir = File("./ExamplePlugins/MyFirstPatch")
+
+rootProject.name = "AliucordPlugins"
 
 include(":Aliucord")
 project(":Aliucord").projectDir = File("../repo/Aliucord")
