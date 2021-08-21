@@ -13,6 +13,3 @@ include(":MyFirstPatch")
 project(":MyFirstPatch").projectDir = File("./ExamplePlugins/MyFirstPatch")
 
 rootProject.name = "AliucordPlugins"
-
-include(":Aliucord")
-project(":Aliucord").projectDir = File("../repo/Aliucord")
