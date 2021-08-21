@@ -5,7 +5,6 @@ Template for an [Aliucord](https://github.com/Aliucord) plugins repo
 ## Setup
 
 1. Generate a repo based on this template
-2. Change Discord version in `build.gradle.kts` to latest version supported by Aliucord
 
 ## Getting started with writing your first plugin
 
