@@ -2,9 +2,8 @@ package com.aliucord.plugins;
 
 import android.content.Context;
 
-import androidx.annotation.NonNull;
-
 import com.aliucord.CollectionUtils;
+import com.aliucord.annotations.AliucordPlugin;
 import com.aliucord.entities.MessageEmbedBuilder;
 import com.aliucord.entities.Plugin;
 import com.aliucord.patcher.PinePatchFn;
@@ -14,20 +13,8 @@ import com.discord.widgets.chat.list.entries.MessageEntry;
 
 // This class is never used so your IDE will likely complain. Let's make it shut up!
 @SuppressWarnings("unused")
+@AliucordPlugin
 public class MyFirstPatch extends Plugin {
-    @NonNull
-    @Override
-    // Plugin Manifest - Required
-    public Manifest getManifest() {
-        var manifest = new Manifest();
-        manifest.authors = new Manifest.Author[]{new Manifest.Author("DISCORD USERNAME", 123456789L)};
-        manifest.description = "My First Patch";
-        manifest.version = "1.0.0";
-        manifest.updateUrl = "https://raw.githubusercontent.com/USERNAME/REPONAME/builds/updater.json";
-        return manifest;
-    }
-
-
     @Override
     // Called when your plugin is started. This is the place to register command, add patches, etc
     public void start(Context context) {
