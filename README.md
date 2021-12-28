@@ -1,19 +1,16 @@
-# `Aliucord-plugins-template`
+# `Aliucord Plugin Repo Template`
 
-Template for an [Aliucord](https://github.com/Aliucord) plugins repo
-
-## Setup
-
-1. Generate a repo based on this template
+Template for an [Aliucord](https://github.com/Aliucord) plugin repo
 
 ## Getting started with writing your first plugin
 
-This template includes 4 example plugins which you can find in the ExamplePlugins folder.
+This template includes 2 example plugins demonstrating commands and patches which you can find in the ExamplePlugins folder.
 
-1. Copy the `HelloWorld` example plugin into the root of this folder as MyFirstPlugin and fix all values in the plugin Manifest method
-2. Uncomment the first line in `settings.gradle.kts` to tell gradle to include it. Whenever you add a new plugin you have to add it here
-3. Edit default manifest in root project `build.gradle.kts` in `aliucord` session
-4. Run `./gradlew MyFirstPlugin:make` or `./gradlew MyFirstPlugin:deployWithAdb`
+1. Open the root build.gradle.kts, read the comments and replace all the placeholders
+2. Familiarize yourself with the project structure. Most files are commented
+3. Build or deploy your first plugin using:
+   - Windows: `.\gradlew.bat MyFirstCommand:make` or `.\gradlew.bat MyFirstCommand:deployWithAdb`
+   - Linux & Mac: `./gradlew MyFirstCommand:make` or `./gradlew MyFirstCommand:deployWithAdb`
 
 ## License
 
