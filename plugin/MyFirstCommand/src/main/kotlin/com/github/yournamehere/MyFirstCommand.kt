@@ -8,9 +8,11 @@ import com.aliucord.entities.Plugin
 import com.discord.api.commands.ApplicationCommandType
 
 // Aliucord Plugin annotation. Must be present on the main class of your plugin
-@AliucordPlugin(requiresRestart = false /* Whether your plugin requires a restart after being installed/updated */)
 // Plugin class. Must extend Plugin and override start and stop
 // Learn more: https://github.com/Aliucord/documentation/blob/main/plugin-dev/1_introduction.md#basic-plugin-structure
+@AliucordPlugin(
+    requiresRestart = false // Whether your plugin requires a restart after being installed/updated
+)
 class MyFirstCommand : Plugin() {
     override fun start(context: Context) {
         // Register a command with the name hello and description "My first command!" and no arguments.
@@ -25,10 +27,22 @@ class MyFirstCommand : Plugin() {
         }
 
         // A bit more advanced command with arguments
-        commands.registerCommand("hellowitharguments", "Hello World but with arguments!", listOf(
-            Utils.createCommandOption(ApplicationCommandType.STRING, "name", "Person to say hello to"),
-            Utils.createCommandOption(ApplicationCommandType.USER, "user", "User to say hello to")
-        )) { ctx ->
+        commands.registerCommand(
+            "hellowitharguments",
+            "Hello World but with arguments!",
+            listOf(
+                Utils.createCommandOption(
+                    ApplicationCommandType.STRING,
+                    "name",
+                    "Person to say hello to"
+                ),
+                Utils.createCommandOption(
+                    ApplicationCommandType.USER,
+                    "user",
+                    "User to say hello to"
+                )
+            )
+        ) { ctx ->
             // Check if a user argument was passed
             if (ctx.containsArg("user")) {
                 val user = ctx.getRequiredUser("user")

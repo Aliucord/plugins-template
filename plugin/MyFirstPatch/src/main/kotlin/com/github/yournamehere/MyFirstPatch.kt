@@ -13,9 +13,11 @@ import com.discord.widgets.chat.list.entries.ChatListEntry
 import com.discord.widgets.chat.list.entries.MessageEntry
 
 // Aliucord Plugin annotation. Must be present on the main class of your plugin
-@AliucordPlugin(requiresRestart = false /* Whether your plugin requires a restart after being installed/updated */)
 // Plugin class. Must extend Plugin and override start and stop
 // Learn more: https://github.com/Aliucord/documentation/blob/main/plugin-dev/1_introduction.md#basic-plugin-structure
+@AliucordPlugin(
+    requiresRestart = false // Whether your plugin requires a restart after being installed/updated
+)
 class MyFirstPatch : Plugin() {
     override fun start(context: Context) {
         // Patch that adds an embed with message statistics to each message
@@ -26,7 +28,8 @@ class MyFirstPatch : Plugin() {
             // and https://docs.oracle.com/javase/tutorial/reflect/class/classNew.html
             Int::class.java, // int type
             ChatListEntry::class.java // ChatListEntry entry
-        ) { param -> // see https://api.xposed.info/reference/de/robv/android/xposed/XC_MethodHook.MethodHookParam.html
+        ) { param ->
+            // see https://api.xposed.info/reference/de/robv/android/xposed/XC_MethodHook.MethodHookParam.html
             // Obtain the second argument passed to the method, so the ChatListEntry
             // Because this is a Message item, it will always be a MessageEntry, so cast it to that
             val entry = param.args[1] as MessageEntry
@@ -56,7 +59,8 @@ class MyFirstPatch : Plugin() {
         }
 
         // Patch that renames Juby to JoobJoob
-        patcher.before<CoreUser>("getUsername") { param -> // see https://api.xposed.info/reference/de/robv/android/xposed/XC_MethodHook.MethodHookParam.html
+        patcher.before<CoreUser>("getUsername") { param ->
+            // see https://api.xposed.info/reference/de/robv/android/xposed/XC_MethodHook.MethodHookParam.html
             // in before, after and instead patches, `this` refers to the instance of the class
             // the patched method is on, so the CoreUser instance here
             if (id == 925141667688878090) {
@@ -67,7 +71,8 @@ class MyFirstPatch : Plugin() {
 
         // Patch that hides your typing status by replacing the method and simply doing nothing
         patcher.instead<StoreUserTyping>(
-            "setUserTyping", Long::class.java // long channelId
+            "setUserTyping",
+            Long::class.java // long channelId
         ) { null }
     }
 

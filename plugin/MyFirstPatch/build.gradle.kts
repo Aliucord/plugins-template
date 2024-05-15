@@ -3,9 +3,11 @@ description = "My first patch!" // Plugin description that will be shown to user
 
 aliucord {
     // Changelog of your plugin
-    changelog.set("""
+    changelog.set(
+        """
         Some changelog
-    """.trimIndent())
+        """.trimIndent()
+    )
     // Image or Gif that will be shown at the top of your changelog page
     // changelogMedia.set("https://cool.png")
 
