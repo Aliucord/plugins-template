@@ -72,7 +72,7 @@ class MyFirstPatch : Plugin() {
         // Patch that hides your typing status by replacing the method and simply doing nothing
         patcher.instead<StoreUserTyping>(
             "setUserTyping",
-            Long::class.java // long channelId
+            Long::class.java // java.lang.Long channelId
         ) { null }
     }
 
