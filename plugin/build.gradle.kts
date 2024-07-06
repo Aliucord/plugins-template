@@ -19,6 +19,7 @@ subprojects {
     }
 
     configure<LibraryExtension> {
+        // TODO: Change to your package name
         namespace = "com.github.yournamehere"
 
         compileSdk = 34

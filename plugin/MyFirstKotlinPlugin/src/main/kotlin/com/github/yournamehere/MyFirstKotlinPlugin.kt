@@ -1,11 +1,14 @@
 package com.github.yournamehere
 
 import android.content.Context
+import com.aliucord.Utils
 import com.aliucord.annotations.AliucordPlugin
+import com.aliucord.api.CommandsAPI
 import com.aliucord.entities.MessageEmbedBuilder
 import com.aliucord.entities.Plugin
 import com.aliucord.patcher.*
 import com.aliucord.wrappers.embeds.MessageEmbedWrapper.Companion.title
+import com.discord.api.commands.ApplicationCommandType
 import com.discord.models.user.CoreUser
 import com.discord.stores.StoreUserTyping
 import com.discord.widgets.chat.list.adapter.WidgetChatListAdapterItemMessage
@@ -18,11 +21,51 @@ import com.discord.widgets.chat.list.entries.MessageEntry
 @AliucordPlugin(
     requiresRestart = false // Whether your plugin requires a restart after being installed/updated
 )
-class MyFirstPatch : Plugin() {
+class MyFirstKotlinPlugin : Plugin() {
     override fun start(context: Context) {
+        // Register a command with the name hello and description "My first command!" and no arguments.
+        // Learn more: https://github.com/Aliucord/documentation/blob/main/plugin-dev/2_commands.md
+        commands.registerCommand("hello", "My first command!") {
+            // Just return a command result with hello world as the content
+            CommandsAPI.CommandResult(
+                "Hello World!",
+                null, // List of embeds
+                false // Whether to send visible for everyone
+            )
+        }
+
+        // A bit more advanced command with arguments
+        commands.registerCommand(
+            "hellowitharguments",
+            "Hello World but with arguments!",
+            listOf(
+                Utils.createCommandOption(
+                    ApplicationCommandType.STRING,
+                    "name",
+                    "Person to say hello to"
+                ),
+                Utils.createCommandOption(
+                    ApplicationCommandType.USER,
+                    "user",
+                    "User to say hello to"
+                )
+            )
+        ) { ctx ->
+            // Check if a user argument was passed
+            val username = if (ctx.containsArg("user")) {
+                ctx.getRequiredUser("user").username
+            } else {
+                // Returns either the argument value if present, or the defaultValue ("World" in this case)
+                ctx.getStringOrDefault("name", "World")
+            }
+
+            // Return the final result that will be displayed in chat as a response to the command
+            CommandsAPI.CommandResult("Hello $username!")
+        }
+
         // Patch that adds an embed with message statistics to each message
         // Patched method is WidgetChatListAdapterItemMessage.onConfigure(int type, ChatListEntry entry)
-        patcher.after<WidgetChatListAdapterItemMessage> /* Class whose method to patch */(
+        patcher.after<WidgetChatListAdapterItemMessage>(
             "onConfigure", // Method name
             // Refer to https://kotlinlang.org/docs/reflection.html#class-references
             // and https://docs.oracle.com/javase/tutorial/reflect/class/classNew.html
@@ -33,16 +76,17 @@ class MyFirstPatch : Plugin() {
             // Obtain the second argument passed to the method, so the ChatListEntry
             // Because this is a Message item, it will always be a MessageEntry, so cast it to that
             val entry = param.args[1] as MessageEntry
+            val message = entry.message
 
             // You need to be careful when messing with messages, because they may be loading
             // (user sent a message, and it is currently sending)
-            if (entry.message.isLoading) return@after
+            if (message.isLoading) return@after
 
             // Now add an embed with the statistics
 
             // This method may be called multiple times per message, e.g. if it is edited,
             // so first remove existing embeds
-            entry.message.embeds.removeIf {
+            message.embeds.removeIf {
                 // MessageEmbed.getTitle() is actually obfuscated, but Aliucord provides extensions for commonly used
                 // obfuscated Discord classes, so just import the MessageEmbed.title extension and boom goodbye obfuscation!
                 it.title == "Message Statistics"
@@ -51,10 +95,10 @@ class MyFirstPatch : Plugin() {
             // Creating embeds is a pain, so Aliucord provides a convenient builder
             MessageEmbedBuilder().run {
                 setTitle("Message Statistics")
-                addField("Length", (entry.message.content?.length ?: 0).toString(), false)
-                addField("ID", entry.message.id.toString(), false)
+                addField("Length", "${message.content?.length ?: 0}", false)
+                addField("ID", message.id.toString(), false)
 
-                entry.message.embeds.add(build())
+                message.embeds.add(build())
             }
         }
 
