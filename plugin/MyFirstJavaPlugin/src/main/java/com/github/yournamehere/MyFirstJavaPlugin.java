@@ -27,7 +27,7 @@ import java.util.Objects;
 @AliucordPlugin(
         requiresRestart = false // Whether your plugin requires a restart after being installed/updated
 )
-class MyFirstJavaPlugin extends Plugin {
+public class MyFirstJavaPlugin extends Plugin {
     @Override
     public void start(Context context) throws Throwable {
         // Register a command with the name hello and description "My first command!" and no arguments.
