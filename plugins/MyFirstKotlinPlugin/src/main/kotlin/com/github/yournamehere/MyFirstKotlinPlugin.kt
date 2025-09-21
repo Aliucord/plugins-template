@@ -21,6 +21,7 @@ import com.discord.widgets.chat.list.entries.MessageEntry
 @AliucordPlugin(
     requiresRestart = false // Whether your plugin requires a restart after being installed/updated
 )
+@Suppress("unused")
 class MyFirstKotlinPlugin : Plugin() {
     override fun start(context: Context) {
         // Register a command with the name hello and description "My first command!" and no arguments.
@@ -86,7 +87,7 @@ class MyFirstKotlinPlugin : Plugin() {
 
             // This method may be called multiple times per message, e.g. if it is edited,
             // so first remove existing embeds
-            message.embeds.removeIf {
+            message.embeds.removeAll {
                 // MessageEmbed.getTitle() is actually obfuscated, but Aliucord provides extensions for commonly used
                 // obfuscated Discord classes, so just import the MessageEmbed.title extension and boom goodbye obfuscation!
                 it.title == "Message Statistics"

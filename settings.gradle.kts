@@ -4,26 +4,23 @@ pluginManagement {
     repositories {
         google()
         gradlePluginPortal()
-        maven("https://maven.aliucord.com/snapshots")
-        maven("https://jitpack.io")
+        maven("https://maven.aliucord.com/releases")
     }
 }
 
 dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
         mavenCentral()
-        maven("https://maven.aliucord.com/snapshots")
+        maven("https://maven.aliucord.com/releases")
     }
-
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
 }
 
 rootProject.name = "aliucord-plugins"
+include(":plugins")
 
-rootDir
-    .resolve("plugin")
-    .listFiles { file ->
-        file.isDirectory && file.resolve("build.gradle.kts").exists()
-    }!!
-    .forEach { include(":plugin:${it.name}") }
+// Add each directory under ./plugins as a separate project
+rootDir.resolve("plugins")
+    .listFiles { file -> file.isDirectory && file.resolve("build.gradle.kts").exists() }!!
+    .forEach { include(":plugins:${it.name}") }

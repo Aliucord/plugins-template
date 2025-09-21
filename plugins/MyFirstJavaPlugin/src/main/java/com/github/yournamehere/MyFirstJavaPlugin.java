@@ -12,6 +12,7 @@ import com.aliucord.patcher.InsteadHook;
 import com.aliucord.patcher.PreHook;
 import com.aliucord.wrappers.embeds.MessageEmbedWrapper;
 import com.discord.api.commands.ApplicationCommandType;
+import com.discord.api.message.embed.MessageEmbed;
 import com.discord.models.user.CoreUser;
 import com.discord.stores.StoreUserTyping;
 import com.discord.widgets.chat.list.adapter.WidgetChatListAdapterItemMessage;
@@ -19,6 +20,7 @@ import com.discord.widgets.chat.list.entries.ChatListEntry;
 import com.discord.widgets.chat.list.entries.MessageEntry;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Objects;
 
 // Aliucord Plugin annotation. Must be present on the main class of your plugin
@@ -27,6 +29,7 @@ import java.util.Objects;
 @AliucordPlugin(
         requiresRestart = false // Whether your plugin requires a restart after being installed/updated
 )
+@SuppressWarnings("unused")
 public class MyFirstJavaPlugin extends Plugin {
     @Override
     public void start(Context context) throws Throwable {
@@ -81,8 +84,14 @@ public class MyFirstJavaPlugin extends Plugin {
             // Now add an embed with the statistics
 
             // This method may be called multiple times per message, e.g. if it is edited,
-            // so first remove existing embeds
-            message.getEmbeds().removeIf(it -> Objects.equals(new MessageEmbedWrapper(it).getTitle(), "Message Statistics"));
+            // so first remove existing embeds.
+            Iterator<MessageEmbed> embedIterator = message.getEmbeds().iterator();
+            while (embedIterator.hasNext()) {
+                MessageEmbedWrapper embed = new MessageEmbedWrapper(embedIterator.next());
+
+                if ("Message Statistics".equals(embed.getTitle()))
+                    embedIterator.remove();
+            }
 
             // Creating embeds is a pain, so Aliucord provides a convenient builder
             var embed = new MessageEmbedBuilder()
