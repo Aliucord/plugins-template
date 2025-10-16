@@ -8,12 +8,8 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'gradle.properties'
-      - 'gradle/**'
-      - 'plugin/**'
-      - '**.gradle.kts'
-      - '.github/**'
+    paths-ignore:
+      - '*.md'
 
 jobs:
   build:
