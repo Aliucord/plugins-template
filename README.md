@@ -9,7 +9,10 @@ Template for an [Aliucord](https://github.com/Aliucord) plugin repo
 
 ## Pre-requisites
 
-- Java JDK 11 or newer. OpenJDK recommended
+- Java JDK 17 or newer (JDK 21 is recommended). Example distributions:
+    - [Adoptium](https://adoptium.net)
+    - [Temurin](https://adoptium.net/temurin)
+    - [Azul](https://www.azul.com/downloads/?package=jdk#zulu)
 - [Android Studio](https://developer.android.com/studio)
 
 ## Getting started with writing your first plugin
@@ -21,8 +24,8 @@ To set up your development environment:
 
 1. Clone this repository to your local machine.
 2. Open the cloned repository in Android Studio.
-3. Open the gradle build script at [plugin/build.gradle.kts](plugin/build.gradle.kts), read the
-   comments and replace all the placeholders
+3. Open the gradle build script at [plugin/build.gradle.kts](plugins/build.gradle.kts), read the
+   comments and replace all the placeholders marked with `// TODO`
 4. Familiarize yourself with the project structure. Most files are commented
 
 To build and deploy your plugin:

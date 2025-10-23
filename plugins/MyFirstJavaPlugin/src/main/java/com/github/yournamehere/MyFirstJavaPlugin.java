@@ -21,13 +21,12 @@ import com.discord.widgets.chat.list.entries.MessageEntry;
 
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.Objects;
 
 // Aliucord Plugin annotation. Must be present on the main class of your plugin
 // Plugin class. Must extend Plugin and override start and stop
 // Learn more: https://github.com/Aliucord/documentation/blob/main/plugin-dev/1_introduction.md#basic-plugin-structure
 @AliucordPlugin(
-        requiresRestart = false // Whether your plugin requires a restart after being installed/updated
+    requiresRestart = false // Whether your plugin requires a restart after being installed/updated
 )
 @SuppressWarnings("unused")
 public class MyFirstJavaPlugin extends Plugin {
@@ -38,34 +37,34 @@ public class MyFirstJavaPlugin extends Plugin {
         commands.registerCommand("hello", "My first command!", ctx -> {
             // Just return a command result with hello world as the content
             return new CommandsAPI.CommandResult(
-                    "Hello World!",
-                    null, // List of embeds
-                    false // Whether to send visible for everyone
+                "Hello World!",
+                null, // List of embeds
+                false // Whether to send visible for everyone
             );
         });
 
         // A bit more advanced command with arguments
         commands.registerCommand(
-                "hellowitharguments",
-                "Hello World but with arguments!",
-                Arrays.asList(
-                        Utils.createCommandOption(ApplicationCommandType.STRING, "name", "Person to say hello to"),
-                        Utils.createCommandOption(ApplicationCommandType.USER, "user", "User to say hello to")
-                ),
-                ctx -> {
-                    String username;
+            "hellowitharguments",
+            "Hello World but with arguments!",
+            Arrays.asList(
+                Utils.createCommandOption(ApplicationCommandType.STRING, "name", "Person to say hello to"),
+                Utils.createCommandOption(ApplicationCommandType.USER, "user", "User to say hello to")
+            ),
+            ctx -> {
+                String username;
 
-                    // Check if a user argument was passed
-                    if (ctx.containsArg("user")) {
-                        username = ctx.getRequiredUser("user").getUsername();
-                    } else {
-                        // Returns either the argument value if present, or the defaultValue ("World" in this case)
-                        username = ctx.getStringOrDefault("name", "World");
-                    }
-
-                    // Return the final result that will be displayed in chat as a response to the command
-                    return new CommandsAPI.CommandResult("Hello " + username + "!");
+                // Check if a user argument was passed
+                if (ctx.containsArg("user")) {
+                    username = ctx.getRequiredUser("user").getUsername();
+                } else {
+                    // Returns either the argument value if present, or the defaultValue ("World" in this case)
+                    username = ctx.getStringOrDefault("name", "World");
                 }
+
+                // Return the final result that will be displayed in chat as a response to the command
+                return new CommandsAPI.CommandResult("Hello " + username + "!");
+            }
         );
 
         // Patch that adds an embed with message statistics to each message
@@ -95,22 +94,22 @@ public class MyFirstJavaPlugin extends Plugin {
 
             // Creating embeds is a pain, so Aliucord provides a convenient builder
             var embed = new MessageEmbedBuilder()
-                    .setTitle("Message Statistics")
-                    .addField("Length", message.getContent() != null ? Integer.toString(message.getContent().length()) : "0", false)
-                    .addField("ID", Long.toString(message.getId()), false).build();
+                .setTitle("Message Statistics")
+                .addField("Length", message.getContent() != null ? Integer.toString(message.getContent().length()) : "0", false)
+                .addField("ID", Long.toString(message.getId()), false).build();
 
             message.getEmbeds().add(embed);
         }));
 
         // Patch that renames Juby to JoobJoob
         patcher.patch(
-                CoreUser.class.getDeclaredMethod("getUsername"),
-                new PreHook(param -> { // see https://api.xposed.info/reference/de/robv/android/xposed/XC_MethodHook.MethodHookParam.html
-                    if (((CoreUser) param.thisObject).getId() == 925141667688878090L) {
-                        // setResult() in before patches skips original method invocation
-                        param.setResult("JoobJoob");
-                    }
-                })
+            CoreUser.class.getDeclaredMethod("getUsername"),
+            new PreHook(param -> { // see https://api.xposed.info/reference/de/robv/android/xposed/XC_MethodHook.MethodHookParam.html
+                if (((CoreUser) param.thisObject).getId() == 925141667688878090L) {
+                    // setResult() in before patches skips original method invocation
+                    param.setResult("JoobJoob");
+                }
+            })
         );
 
         // Patch that hides your typing status by replacing the method and simply doing nothing

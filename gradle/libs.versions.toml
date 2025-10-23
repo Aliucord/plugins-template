@@ -1,19 +1,19 @@
 [versions]
-discord = "126021"
 aliucord = "2.3.1"
-aliucord-gradle = "2.0.0"
-kotlin = "2.2.0"
+aliucord-gradle = "2.1.0"
 android = "8.13.0"
+discord = "126021"
+kotlin = "2.2.0"
 ktlint = "1.7.1"
 ktlint-plugin = "13.1.0"
 
 [libraries]
-discord = { module = "com.discord:discord", version.ref = "discord" }
 aliucord = { module = "com.aliucord:Aliucord", version.ref = "aliucord" }
+discord = { module = "com.discord:discord", version.ref = "discord" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
 
 [plugins]
+aliucord-plugin = { id = "com.aliucord.plugin", version.ref = "aliucord-gradle" }
 android-library = { id = "com.android.library", version.ref = "android" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-aliucord-plugin = { id = "com.aliucord.plugin", version.ref = "aliucord-gradle" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint-plugin" }
